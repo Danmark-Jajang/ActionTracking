@@ -1,6 +1,7 @@
 import tensorflow as tf
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
+from CollectionData import actions
 import numpy as np
 import os
 
@@ -22,11 +23,9 @@ for action in actions:
             res = np.load(os.path.join(DATA_PATH, action, str(sequence), '{}.npy'.format(frame_number)))
             window.append(res)
         sequences.append(window) # 90개의 다른 데이터가 로드됨, 30개의 frame, 1662개의 각 landmark
-        label.append(label_map[action])
-        
+        label.append(label_map[action])  
 x = np.array(sequences)
-y = keras.utils.to_categorical(label).astype(int)
-        
+y = keras.utils.to_categorical(label).astype(int)     
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.05)
             
 #Learning Model build
@@ -48,3 +47,4 @@ def start_learning():
     tb_callback = keras.callbacks.TensorBoard(log_dir=log_dir)
 
     model.fit(x_train, y_train, epochs=2000, callbacks=[tb_callback])
+    return model
