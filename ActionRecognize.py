@@ -61,4 +61,4 @@ with mp_holistic.Holistic(min_detection_confidence = 0.5, min_tracking_confidenc
             break
 
 cap.release()
-cv2.destroyAllWindows()  
+cv2.destroyAllWindows()

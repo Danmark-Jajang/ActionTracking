@@ -1,1 +1,2 @@
-print('test sentence')
+a = input("Enter number")
+print(a)

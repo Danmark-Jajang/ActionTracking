@@ -5,19 +5,19 @@ import os
 import video
 from video import mp_drawing, mp_holistic
 
-# 추출한 데이터를 저장할 경로 생성
-DATA_PATH = os.path.join('MP_Data')
-
-# 우리가 탐지할 모션의 이름의 배열
-actions = np.array(['Hello', 'thanks', 'ILoveYou'])
-
-# 30개의 프레임
-no_sequences = 30
-
-# 한 비디오당 탐지할 길이
-sequence_length = 30
+actions = np.array(['Hello', 'My', 'Name', 'He', 'She', 'You', 'We', 'Where', 'Live'])
 
 def CollectionData():
+    DATA_PATH = os.path.join('MP_Data')
+
+    # 우리가 탐지할 모션의 이름의 배열
+    actions = np.array(['Hello', 'My', 'Name', 'He', 'She', 'You', 'We', 'Where', 'Live'])
+
+    # 30개의 프레임
+    no_sequences = 30
+
+    # 한 비디오당 탐지할 길이
+    sequence_length = 30
     for action in actions:
         for sequence in range(no_sequences):
             try:
@@ -60,13 +60,11 @@ def CollectionData():
 
                     # 웹캠 닫기
                     if cv2.waitKey(10) & 0xFF == ord('q'):
-                        break
+                        cap.release()
+                        cv2.destroyAllWindows()
+                        return
     cap.release()
     cv2.destroyAllWindows()
     
-def extract_keypoints(results):
-    pose = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmark]).flatten() if results.pose_landmarks else np.zeros(33*4)
-    lh = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(21*3)
-    rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)
-    face = np.array([[res.x, res.y, res.z] for res in results.face_landmarks.landmark]).flatten() if results.face_landmarks else np.zeros(468*3)
-    return np.concatenate([pose, face, lh, rh])
+if __name__=="__main__":
+    CollectionData()
