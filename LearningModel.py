@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from CollectionData import actions
 import numpy as np
 import os
+import queue
 
 DATA_PATH = os.path.join('MP_Data')
 # 30개의 프레임
@@ -35,22 +36,23 @@ def model_fn():
     model.add(keras.layers.LSTM(128, return_sequences=True, activation='relu', input_shape=(30,1662)))
     model.add(keras.layers.LSTM(256, return_sequences=True, activation='relu'))
     model.add(keras.layers.LSTM(128, return_sequences=False, activation='relu'))
-    model.add(keras.layers.Dense(128, activation='relu'))
     model.add(keras.layers.Dense(64, activation='relu'))
+    model.add(keras.layers.Dense(32, activation='relu'))
     model.add(keras.layers.Dense(actions.shape[0], activation='softmax'))
     return model
 
 def start_learning(x_train, y_train):
     model = model_fn()
-    model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
+    model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
     log_dir = os.path.join('Logs')
     tb_callback = keras.callbacks.TensorBoard(log_dir=log_dir)
 
-    model.fit(x_train, y_train, epochs=2000, callbacks=[tb_callback])
-    model.save('action.h5')
+    model.fit(x_train, y_train, epochs=150, callbacks=[tb_callback])
+    model.save('taction.h5')
     return model
 
 if __name__=="__main__":
     x_train, x_test, y_train, y_test = load_data()
     print(x_train.shape, x_test.shape)
+    start_learning(x_train, y_train)

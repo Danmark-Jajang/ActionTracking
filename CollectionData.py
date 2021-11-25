@@ -5,13 +5,12 @@ import os
 import video
 from video import mp_drawing, mp_holistic
 
-actions = np.array(['Hello', 'My', 'Name', 'He', 'She', 'You', 'We', 'Where', 'Live'])
+# 'None', 'My', 'Name', 'You', 'Where', 'What'
+actions = np.array(['None', 'My', 'Name', 'You', 'Where', 'What'])
 
 def CollectionData():
     DATA_PATH = os.path.join('MP_Data')
-
     # 우리가 탐지할 모션의 이름의 배열
-    actions = np.array(['Hello', 'My', 'Name', 'He', 'She', 'You', 'We', 'Where', 'Live'])
 
     # 30개의 프레임
     no_sequences = 30
