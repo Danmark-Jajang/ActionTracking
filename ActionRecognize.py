@@ -14,7 +14,7 @@ class Queue():
     def __init__(self):
         self.queue = []
         self.size = 0
-        self.MAX_SIZE = 20
+        self.MAX_SIZE = 10
         self.front = 0
         
     def __len__(self):
@@ -48,11 +48,11 @@ class Queue():
         return self.queue
 
 ##################################################################
-# you must run this after run java client!!                      #
+# you must run this program after run java client!!              #
 ##################################################################
 def ActionRecognize():
     model = LearningModel.model_fn()
-    model.load_weights('taction.h5')
+    model.load_weights('faction.h5')
 
     outputData = Queue()
     for _ in range(outputData.MAX_SIZE):

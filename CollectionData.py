@@ -6,7 +6,7 @@ import video
 from video import mp_drawing, mp_holistic
 
 # 'None', 'My', 'Name', 'You', 'Where', 'What'
-actions = np.array(['None', 'My', 'Name', 'You', 'Where', 'What'])
+actions = np.array(['None', 'Name', 'My', 'Kim', 'Cooking', 'Bye', '1', '2'])
 
 def CollectionData():
     DATA_PATH = os.path.join('MP_Data')
