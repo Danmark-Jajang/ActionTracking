@@ -33,9 +33,9 @@ def load_data():
 #Learning Model build
 def model_fn():
     model = keras.models.Sequential()
-    model.add(keras.layers.LSTM(128, return_sequences=True, activation='relu', input_shape=(30,1662)))
-    model.add(keras.layers.LSTM(256, return_sequences=True, activation='relu'))
-    model.add(keras.layers.LSTM(128, return_sequences=False, activation='relu'))
+    model.add(keras.layers.LSTM(64, return_sequences=True, activation='relu', input_shape=(30,1662)))
+    model.add(keras.layers.LSTM(128, return_sequences=True, activation='relu'))
+    model.add(keras.layers.LSTM(64, return_sequences=False, activation='relu'))
     model.add(keras.layers.Dense(64, activation='relu'))
     model.add(keras.layers.Dense(32, activation='relu'))
     model.add(keras.layers.Dense(actions.shape[0], activation='softmax'))
@@ -48,8 +48,8 @@ def start_learning(x_train, y_train):
     log_dir = os.path.join('Logs')
     tb_callback = keras.callbacks.TensorBoard(log_dir=log_dir)
 
-    model.fit(x_train, y_train, epochs=150, callbacks=[tb_callback])
-    model.save('taction.h5')
+    model.fit(x_train, y_train, epochs=300, callbacks=[tb_callback])
+    model.save('faction.h5')
     return model
 
 if __name__=="__main__":
